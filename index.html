@@ -4,18 +4,63 @@
   <title>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- Jquery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="./bootstrap.min.css" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap Slider -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css" type="text/css" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+
+  <!-- Custom -->
+  <script src="./main.js"></script>
+  <link rel="stylesheet" href="./main.css" type="text/css"></script>
+  <style type="text/css">
+   /*body { background: navy !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+  </style>
 </head>
 <body>
   
 <div class="container">
+  <br><br><br><br><br>
+  <br><br><br><br><br>
   <h1>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
-  <p>This part is inside a .container class.</p> 
-  <p>The .container class provides a responsive fixed width container.</p>           
+  <br><br>
+  <div class="container d-flex justify-content-center">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="radio" name="options" id="option1" autocomplete="off" checked> Field 
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="options" id="option2" autocomplete="off"> Inclination 
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="options" id="option3" autocomplete="off"> Azimuth 
+      </label>
+    </div>
+  </div>
+  <br><br>
+  <div class="container d-flex justify-content-center">
+    <p>Here you can explore the solar emulation results from our paper. Left image is the prediction, right image is the ground truth.</p> 
+  </div>
+  <div class="container d-flex justify-content-center">
+    <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="14"/>
+  </div>
+  <div class="container d-flex justify-content-center">
+    <input id="ex4" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/>
+    <img src="./richard.jpg" class="img-fluid p-4" alt="Responsive image">
+    <img src="./richard.jpg" class="img-fluid p-4" alt="Responsive image">
+    <input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/>
+  </div>
+  <div class="container d-flex justify-content-center">
+	This is the appendix.
+  </div>
 </div>
-
 </body>
 </html>
 

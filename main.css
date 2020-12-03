@@ -1,0 +1,11 @@
+#ex1Slider .slider-selection {
+	background: #BABABA;
+}
+
+.slider.slider-horizontal{
+  width:100%; /* sample value - set it as you like*/
+}
+
+.slider.slider-vertical{
+  height:500px; /* sample value - set it as you like*/
+}
