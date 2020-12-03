@@ -1,48 +1,21 @@
-<h3>Prediction of Atmospheric Imaging Assembly (AIA)<br>
-        from Helioseismic and Magnetic Imager (HMI) data collected<br>
-        by the Solar Dynamics Observatory (SDO).</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  
+<div class="container">
+  <h1>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
+  <p>This part is inside a .container class.</p> 
+  <p>The .container class provides a responsive fixed width container.</p>           
+</div>
 
-<p><b><a href="/~relh/">Return to meta index</a>.</b></p>
-<p>The columns are the:</p>
-<ul>
-        <li>index of network in the list</li>
-        <li>image of a visualization from the network input</li>
-        <li>image of a visualization from the network output</li>
-        <li>name of the network</li>
-        <li>date that the model was last saved</li>
-        <li>epoch it was saved after</li> 
-        <li>delta time in the future being predicted</li> 
-        <li>loss that it achieved</li> 
-</ul>
+</body>
+</html>
 
-<h3>A/H 2 A/H: AIA/HMI 2 AIA/HMI</h3>
-<p>The a/h 2 a/h models convert AIA/HMI data to AIA/HMI frequencies. The input is 
-the 9 channels on the left (or 3 Helioseismic and Magnetic Images) and the output 
-is the 9 channels on the right (or HMI). These are either ground truth or the
-output of a network, respectively. The metrics are computed across the entire validation set.
-The A/H specific columns are:
-<ul>
-        <li>average of per pixel relative difference, (y-y_hat) / y</li> 
-        <li>average of per pixel absolute difference, y-y_hat</li> 
-        <li>percent of pixels within 10% of ground truth</li> 
-        <li>percent of pixels within 20% of ground truth</li> 
-        <li>percent of pixels within 50% of ground truth</li> 
-</ul>
-
-<h3>S2F: Stats 2 Flare</h3>
-<p>The s2f models are all trained on converting statistics from AIA and HMI data to GOES<br>
-flare predictions. The input to each model is the following statistics from all 12 HMI and AIA channels:<br>
-mean, std, sum, absolute value sum, min, max, median, mode, and range. The SF specific columns are:</p>
-
-<ul>
-        <li>mAP of the classifier</li> 
-        <li>accuracy of the classifier</li> 
-        <li>Heidke Skill Score of classifier</li> 
-        <li>F1 score of the classififer</li> 
-</ul><br>
-<p>The AH pages are sorted by the best pixels within 10% of the truth measure, with intra (but NOT inter)<br>
-page sorting possible. The SF pages are sorted by the accuracy of the classifier. Click on a table header to
-sort by that measure. Alternatively, the columns are from the classification task and represent a number of
-relevant metrics.</p>
-<br>
-<br>
