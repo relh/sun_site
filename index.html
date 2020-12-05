@@ -22,12 +22,12 @@
   <style type="text/css">
    /*body { background: navy !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
   </style>
+<script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script>
 </head>
 <body>
   
 <div class="container">
   <h1 class="p-3">Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
-  <br><br>
   <div class="container d-flex justify-content-center">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <label class="btn btn-secondary active"><input type="radio" name="options" id="option1" autocomplete="off" checked> Field</label>
@@ -42,21 +42,46 @@
   </div>
   <br><br>
   <div class="container d-flex justify-content-center">
-    <p>Here you can explore the solar emulation results from our paper. Left image is the prediction, right image is the ground truth.</p> 
-  </div>
-  <br><br>
-  <div class="container d-flex justify-content-center">
     <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="14"/>
   </div>
+  <div class="parent container d-flex justify-content-center m-4">
+          <div id="img-container" class="image1" >
+             <img src="./full_prediction.jpg" class="image2" style="width: 512px;" />
+          </div>
+  </div>
+  <!--
+             <img src="./full_prediction.jpg" class="image2" />
+          <div id="img-container-gt" class="image2" style="margin-top: -768px;">
+          </div>
+     <img src="./inclination_pred.png" class="float-center image1" />
+     <img src="./full_prediction.png" class="float-center image1" />
+     <img src="./inclination_pred.png" class="float-center image2" />
+  -->
+  <div class="container">
+  <p>Our paper presents a neural network trained to estimate magnetic field parametrs of the sun from measured polarized light, emulating the VFISV pipeline. We show results for eight targets below.</p> 
+  <ul>
+        <li>Field -- The strength of the magnetic field, measured in Mx/cm^2.</li>
+        <li>Inclination -- The inclination angle of the magnetic field, measured in degrees.</li>
+        <li>Azimuth -- The azimuth angle of the magnetic field, measured in degrees.</li>
+        <li>LOS Velocity -- The magnitude of the velocity of the plasma in the line-of-sight of the telescope, measured in cm/s.</li>
+        <li>Doppler Width -- A thermodynamic parameter, measured in milli angstroms.</li>
+        <li>Eta_0 -- A thermodynamic parameter, dimensionless.</li>
+        <li>S0 -- A thermodynamic parameter, measured in DN/s.</li>
+        <li>S1 -- A thermodynamic parameter, measured in DN/s.</li>
+  </ul>  
+  <p>Here you can explore the solar emulation results from our paper. Left image is the prediction, right image is the ground truth.</p> 
+  <br><br>
+    <!-- input id="ex4" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
+    <!-- input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
+</div>
+  <!--
   <div class="container d-flex justify-content-center">
-    <input id="ex4" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/>
-    <img src="./prediction.jpg" class="img-fluid p-3" alt="Responsive image">
-    <img src="./ground_truth.jpg" class="img-fluid p-3" alt="Responsive image">
-    <input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical"/>
+        This is the link to the paper on Arxiv.
   </div>
   <div class="container d-flex justify-content-center">
-	This is the link to the paper on Arxiv.
+        <img src="./field_month.png" class="img-fluid p-3" alt="Responsive image">
   </div>
+-->
 </div>
 </body>
 <script src="./main.js"></script>
