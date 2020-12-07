@@ -14,18 +14,40 @@
   position: relative;
   top: 0;
   left: 0;
+pointer-events: auto;
 }
+
 .image1 {
   position: relative;
   top: 0;
   left: 0;
-  border: 0px white solid;
-  pointer-events: all;
+  border: 1px red solid;
+pointer-events: auto;
 }
 .image2 {
   position: absolute;
   top: 0px;
   left: 0px;
-  border: 0px white solid;
-  pointer-events: all;
+  border: 1px green solid;
+pointer-events: auto;
+} 
+
+/*
+#ppp {
+  position: relative;
 }
+
+.#img-container {
+  position: absolute;
+  width: 512px;
+  height: 512px;
+border: 1px solid green;
+}
+
+#img-container-gt {
+  position: absolute;
+  width: 512px;
+  height: 512px;
+border: 1px solid red;
+}
+*/

@@ -22,12 +22,12 @@
   <style type="text/css">
    /*body { background: navy !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
   </style>
-<script src="https://cdn.jsdelivr.net/npm/js-image-zoom/js-image-zoom.min.js"></script>
+<script src="./js-image-zoom.js"></script>
 </head>
 <body>
   
 <div class="container">
-  <h1 class="p-3">Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
+  <h1 class="p-3" style="text-align: center;">Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
   <div class="container d-flex justify-content-center">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
       <label class="btn btn-secondary active"><input type="radio" name="options" id="option1" autocomplete="off" checked> Field</label>
@@ -40,16 +40,31 @@
       <label class="btn btn-secondary"><input type="radio" name="options" id="option8" autocomplete="off"> Source Gradient</label>
     </div>
   </div>
-  <br><br>
+  <br>
   <div class="container d-flex justify-content-center">
-    <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="50" data-slider-step="1" data-slider-value="14"/>
+     <img src="./play.png" style="width: 75px;"/>
   </div>
-  <div class="parent container d-flex justify-content-center m-4">
-          <div id="img-container" class="image1" >
-             <img src="./full_prediction.jpg" class="image2" style="width: 512px;" />
-          </div>
+  <br>
+  <div class="container d-flex justify-content-center">
+    <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="180" data-slider-step="1" data-slider-value="7"/>
+  </div>
+  <div class="container d-flex justify-content-center m-4">
+     <div id="parent" class="parent" >
+	     <div class="image1"> <!-- onmousemove="triggerTwo(event, this);" -->
+	     <div id="img-container" style="pointer-events:all;">
+	     </div>
+	     </div>
+	     <div class="image2" onmousemove="triggerOne(event, this);">
+	     <div id="img-container-gt" style="pointer-events:all;">
+	     </div>
+	     </div>
+     </div>
+	<br>
   </div>
   <!--
+	     <img src="./inclination_pred.png" id="top-image" style="width: 512px; height: 512px;" />
+	     <img src="./full_prediction.jpg" style="width: 512px; height: 512px;"/>
+             <img src="./full_prediction.jpg" class="image2" id="top-image" style="width:512px; height: 512px;" />
              <img src="./full_prediction.jpg" class="image2" />
           <div id="img-container-gt" class="image2" style="margin-top: -768px;">
           </div>
@@ -58,7 +73,7 @@
      <img src="./inclination_pred.png" class="float-center image2" />
   -->
   <div class="container">
-  <p>Our paper presents a neural network trained to estimate magnetic field parametrs of the sun from measured polarized light, emulating the VFISV pipeline. We show results for eight targets below.</p> 
+  <p>Our paper presents a neural network trained to estimate magnetic field parameters of the sun from measured polarized light, emulating the VFISV pipeline. We show results above for the following eight targets</p> 
   <ul>
         <li>Field -- The strength of the magnetic field, measured in Mx/cm^2.</li>
         <li>Inclination -- The inclination angle of the magnetic field, measured in degrees.</li>
