@@ -199,6 +199,14 @@ $('#ex2').slider().on('slideStop', function(value) {
 
         container_gt_img[0].style.width = 512;
         container_gt_img[0].style.height = 512;
+
+	var value = $('#ex2').slider('getValue');
+	var bluebar = document.getElementById('bluebar');
+	console.log(bluebar);
+	console.log(value);
+	console.log(bluebar.style.left)
+	new_left = 90 + value * 1.25;
+	bluebar.style.left = new_left.toString() + 'px';
 });
 
 function playMeTwo() {
@@ -207,8 +215,8 @@ function playMeTwo() {
                 $('#control2').attr('src', 'https://sunsite.s3.amazonaws.com/assets/pause.png');
                 interval = setInterval(function() {
                     var value = $('#ex2').slider('getValue');
-                    $('#ex2').slider('setValue', value+1, true, false);
-                    $('#ex2').trigger({'type': 'slideStop', 'value': value+1});
+                    $('#ex2').slider('setValue', value+12, true, false);
+                    $('#ex2').trigger({'type': 'slideStop', 'value': value+12});
                     global_play = 1;
                     console.log('time')
                 }, 3000);

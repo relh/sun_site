@@ -21,14 +21,12 @@ pointer-events: auto;
   position: relative;
   top: 0;
   left: 0;
-  border: 1px white solid;
 pointer-events: auto;
 }
 .image2 {
   position: absolute;
   top: 0px;
   left: 0px;
-  border: 1px white solid;
 pointer-events: auto;
 } 
 
@@ -36,22 +34,3 @@ body, input, select, label, p, li, button {
           font-size: 24px;
 }
 
-/*
-#ppp {
-  position: relative;
-}
-
-.#img-container {
-  position: absolute;
-  width: 512px;
-  height: 512px;
-border: 1px solid green;
-}
-
-#img-container-gt {
-  position: absolute;
-  width: 512px;
-  height: 512px;
-border: 1px solid red;
-}
-*/
