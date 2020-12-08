@@ -1,7 +1,9 @@
 $('#ex1').slider({
 	tooltip: 'always',
 	formatter: function(value) {
-		return 'Date: ' + value;
+                date = yearputsfield[value].substring(0,8);
+                date = date.slice(0, 4) + '/' + date.slice(4,6) + '/' + date.slice(6);
+		return 'Date: ' + date ;
 	}
 });
 
@@ -37,6 +39,26 @@ var gt_options = {
     zoomPosition: 'left'
 };
 
+// Initialization
+target = document.querySelector('input[name="options"]:checked').id;
+pred_options.img = './images/yearputs/' + target + '/' + yearputsfield[7] + '_pred_image.jpg';
+gt_options.img = './images/yearputs/' + target + '/' + yearputsfield[7] + '_gt_image.jpg';
+window.prediction_zoom = new ImageZoom(container, pred_options);
+window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
+
+function radioClick(label) {
+        //target = document.querySelector('input[name="options"]:checked').id;
+        var input = label.getElementsByTagName('input')[0]
+        var target = input.id;
+        window['prediction_zoom'].kill();
+        window['ground_truth_zoom'].kill();
+        var value = $('#ex1').slider('getValue');
+        pred_options.img = './images/yearputs/' + target + '/' + yearputsfield[value] + '_pred_image.jpg';
+        gt_options.img = './images/yearputs/' + target + '/' + yearputsfield[value] + '_gt_image.jpg';
+        window.prediction_zoom = new ImageZoom(container, pred_options);
+        window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
+}
+
 function triggerOne(e, context) {
 	var ne = new MouseEvent(e.type, e)
 	container.dispatchEvent(ne, context);
@@ -47,46 +69,17 @@ function triggerTwo(e, context) {
 	containergt.dispatchEvent(ne, context);
 }
 
-function make_zoom_one() {
-        window.ground_truth_zoom = new ImageZoom(container, gt_options);
-        var all_img = container.getElementsByTagName('img');
-        all_img[0].className = "image1";
-        all_img[0].id = "top-image";
-        all_img[0].style = "width: 512px; height: 512px;";
-        //all_img[1].style = "margin-left: -512px; width: 512px; height:512px;";
-
-}
-
-function make_zoom_two() {
-        window.prediction_zoom = new ImageZoom(containergt, pred_options);
-        var all_img = containergt.getElementsByTagName('img');
-        all_img[0].className = "image2";
-        all_img[0].style = "width: 512px; height: 512px;";
-}
-window.prediction_zoom = new ImageZoom(container, pred_options);
-window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
-//make_zoom_one();
-//make_zoom_two();
-
-//window['prediction_zoom'].kill();
-//window['ground_truth_zoom'].kill();
-//make_zoom_one();
-//make_zoom_two();
-
 $('#ex1').slider().on('slideStop', function(value) {
         console.log(value);
-
         window['prediction_zoom'].kill();
         window['ground_truth_zoom'].kill();
+        target = document.querySelector('input[name="options"]:checked').id;
 
-        pred_options.img = './inclination_pred.png';
-        gt_options.img = './inclination_pred.png';
+        pred_options.img = './images/yearputs/' + target + '/' + yearputsfield[value.value] + '_pred_image.jpg';
+        gt_options.img = './images/yearputs/' + target + '/' + yearputsfield[value.value] + '_gt_image.jpg';
 
         window.prediction_zoom = new ImageZoom(container, pred_options);
         window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
-        //make_zoom_one();
-        //make_zoom_two();
-
 
         var container_img = container.getElementsByTagName('img');
         var container_gt_img = containergt.getElementsByTagName('img');
@@ -95,27 +88,24 @@ $('#ex1').slider().on('slideStop', function(value) {
 
         container_gt_img[0].style.width = 512;
         container_gt_img[0].style.height = 512;
-        //all_img[0].src = './inclination_pred.png';
-        //all_img[1].src = './inclination_pred.png';
-        //all_img[1].parentNode.removeChild(all_img[0]);
-        //all_img[1].parentNode.removeChild(all_img[0]);
-
-        //var all_div = container.getElementsByTagName('div');
-        //var one_old_style = all_div[1].style
-        //var three_old_style = all_div[3].style
-
-        //all_div[1].style.backgroundImage = 'url("file:///home/relh/Code/sun_site/inclination_pred.png");'
-        //all_div[3].style.backgroundImage = 'url("file:///home/relh/Code/sun_site/inclination_pred.png");'
-
-        //console.log(all_img);
-        //window.ground_truth_zoom = new ImageZoom(container, gt_options);
-        //window.prediction_zoom = new ImageZoom(container, pred_options);
-
-        //$('#top-image').attr("src", "./inclination_pred.png");
-        //var all_img = container.getElementsByTagName('img');
-        //all_img[0].id = "top-image";
-        //all_img[0].style = "width: 512px; height: 512px;";
-        //all_img[1].style = "margin-left: -512px; width: 512px; height:512px;";
-        //all_img[0].className = "image1";
-        //all_img[1].className = "image2";
 });
+
+var global_play = 0;
+var interval;
+function playMe() {
+        if (global_play == 0) {
+                global_play = 1;
+                $('#control').attr('src', './assets/pause.png');
+                interval = setInterval(function() {
+                    var value = $('#ex1').slider('getValue');
+                    $('#ex1').slider('setValue', value+1, true, false);
+                    $('#ex1').trigger({'type': 'slideStop', 'value': value+1});
+                    global_play = 1;
+                    console.log('time')
+                }, 3000);
+        } else {
+                $('#control').attr('src', './assets/play.png');
+                clearInterval(interval);
+                global_play = 0;
+        }
+}

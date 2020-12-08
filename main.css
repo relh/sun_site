@@ -21,16 +21,20 @@ pointer-events: auto;
   position: relative;
   top: 0;
   left: 0;
-  border: 1px red solid;
+  border: 1px white solid;
 pointer-events: auto;
 }
 .image2 {
   position: absolute;
   top: 0px;
   left: 0px;
-  border: 1px green solid;
+  border: 1px white solid;
 pointer-events: auto;
 } 
+
+body, input, select, label, p, li, button {
+          font-size: 24px;
+}
 
 /*
 #ppp {

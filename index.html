@@ -28,25 +28,26 @@
   
 <div class="container">
   <h1 class="p-3" style="text-align: center;">Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
+  <br>
   <div class="container d-flex justify-content-center">
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label class="btn btn-secondary active"><input type="radio" name="options" id="option1" autocomplete="off" checked> Field</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option2" autocomplete="off"> Inclination</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option3" autocomplete="off"> Azimuth</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option4" autocomplete="off"> LOS Velocity</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option5" autocomplete="off"> Doppler Width</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option6" autocomplete="off"> Eta 0</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option7" autocomplete="off"> Source Continuum</label>
-      <label class="btn btn-secondary"><input type="radio" name="options" id="option8" autocomplete="off"> Source Gradient</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
+      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
     </div>
   </div>
   <br>
   <div class="container d-flex justify-content-center">
-     <img src="./play.png" style="width: 75px;"/>
+     <img id="control" onclick="playMe()" src="./assets/play.png" style="width: 75px;"/>
   </div>
   <br>
   <div class="container d-flex justify-content-center">
-    <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="180" data-slider-step="1" data-slider-value="7"/>
+    <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
   </div>
   <div class="container d-flex justify-content-center m-4">
      <div id="parent" class="parent" >
@@ -61,6 +62,11 @@
      </div>
 	<br>
   </div>
+  <div class="container">
+          <center><p><i><b>Demo 1.</b></i> A full solar disk image is in the center of the screen. Mouseover and you will see a zoom-in panel on both sides (left and right). Can you deduce which zoom-in panel is the ground truth and which is our neural network's prediction? Good luck!
+                  <br><i>Hint: Click the different targets at the top (inclination, azimuth, and more) or the play button to explore further.</i></p> </center>
+  </div>
+  <br>
   <!--
 	     <img src="./inclination_pred.png" id="top-image" style="width: 512px; height: 512px;" />
 	     <img src="./full_prediction.jpg" style="width: 512px; height: 512px;"/>
@@ -73,7 +79,13 @@
      <img src="./inclination_pred.png" class="float-center image2" />
   -->
   <div class="container">
-  <p>Our paper presents a neural network trained to estimate magnetic field parameters of the sun from measured polarized light, emulating the VFISV pipeline. We show results above for the following eight targets</p> 
+          <p><i><b>Introduction.</b></i> Our paper presents a neural network trained to estimate the magnetic field of the sun. It learns to predict the magnetic
+          field using recordings taken from the Helioseismic and Magnetic Imager (HMI) onboard the Solar Dynamics Observatory (SDO). 
+          This HMI sensor measures polarized light (consisting of I, Q, U, and V measurements across 6 bandpasses), and previously a system called the Very Fast Inversion
+          of the Stokes Vector (VFISV ) would iteratively run a Milne-Eddington solar atmosphere inversion algorithm until it found a set of magnetic field settings that 
+          closely matches the real measurements. We emulate this iterative process with a forward model that maps directly from IQUVs to what the magnetic field is.
+          Estimating the magnetic field in this context consists of accurately predicting these eight targets.
+          </p> 
   <ul>
         <li>Field -- The strength of the magnetic field, measured in Mx/cm^2.</li>
         <li>Inclination -- The inclination angle of the magnetic field, measured in degrees.</li>
@@ -84,10 +96,15 @@
         <li>S0 -- A thermodynamic parameter, measured in DN/s.</li>
         <li>S1 -- A thermodynamic parameter, measured in DN/s.</li>
   </ul>  
-  <p>Here you can explore the solar emulation results from our paper. Left image is the prediction, right image is the ground truth.</p> 
-  <br><br>
+  <br>
     <!-- input id="ex4" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
     <!-- input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
+  <div class="container">
+  <p><i><b>Applications.</b></i> We hope to use this system both as a fast "quick-look" version of VFISV and as a tool for troubleshooting some of the abberations seen
+  in VFISV's output. For example, there appears to be a strange 24-hour periodic tendency in the sun's magnetic field strength.. However this is very suspicious as the sun probably doesn't
+  have 24-hour periodicity, but our satellite observing it definitely has!
+        <img src="./assets/field_month.png" class="img-fluid p-3" alt="Responsive image">
+  </div>
 </div>
   <!--
   <div class="container d-flex justify-content-center">
@@ -99,6 +116,7 @@
 -->
 </div>
 </body>
+<script src="./assets/yearputs-field.js"></script>
 <script src="./main.js"></script>
 </html>
 

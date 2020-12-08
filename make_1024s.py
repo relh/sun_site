@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json
 
 import pdb
 import os
@@ -48,6 +49,9 @@ for target in ['field', 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_widt
     for setting in ['yearputs']: #, 'monthputs']:
         gt_files = sorted(os.listdir(gts + setting + '/' + target + '/'))
         pred_files = sorted(os.listdir(preds + setting + '/' + target + '/'))
+        with open(f'{setting}-{target}.json', 'w') as f:
+            pred_dump = [x.split('_')[0] + '_' + x.split('_')[1] for x in pred_files]
+            json.dump(pred_dump, f)
         field_files = sorted(os.listdir(gts + setting + '/' + 'field' + '/'))
 
         '''
@@ -90,4 +94,4 @@ for target in ['field', 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_widt
             plt.imsave(outputs + setting + '/' + target + '/' + date + '_gt_image.jpg', gt_disk_tensor, cmap=image_colormap, vmin=min_limit, vmax=max_limit)#, vmin=-maxmin, vmax=maxmin)
             plt.imsave(outputs + setting + '/' + target + '/' + date + '_pred_image.jpg', pred_disk_tensor, cmap=image_colormap, vmin=min_limit, vmax=max_limit)#, vmin=-maxmin, vmax=maxmin)
 
-            if i == 10: break
+            #if i == 10: break
