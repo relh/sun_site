@@ -46,12 +46,12 @@ for target in ['field', 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_widt
         max_limit = 52695.32
     image_colormap.set_bad('black', 1.)
 
-    for setting in ['yearputs']: #, 'monthputs']:
+    for setting in ['monthputs']: #, 'monthputs']:
         gt_files = sorted(os.listdir(gts + setting + '/' + target + '/'))
         pred_files = sorted(os.listdir(preds + setting + '/' + target + '/'))
-        with open(f'{setting}-{target}.json', 'w') as f:
-            pred_dump = [x.split('_')[0] + '_' + x.split('_')[1] for x in pred_files]
-            json.dump(pred_dump, f)
+        #with open(f'{setting}-{target}.json', 'w') as f:
+        #    pred_dump = [x.split('_')[0] + '_' + x.split('_')[1] for x in pred_files]
+        #    json.dump(pred_dump, f)
         field_files = sorted(os.listdir(gts + setting + '/' + 'field' + '/'))
 
         '''

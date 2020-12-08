@@ -50,7 +50,7 @@
     <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
   </div>
   <div class="container d-flex justify-content-center m-4">
-     <div id="parent" class="parent" >
+     <div class="parent" >
 	     <div class="image1"> <!-- onmousemove="triggerTwo(event, this);" -->
 	     <div id="img-container" style="pointer-events:all;">
 	     </div>
@@ -60,7 +60,7 @@
 	     </div>
 	     </div>
      </div>
-	<br>
+     <br>
   </div>
   <div class="container">
           <center><p><i><b>Demo 1.</b></i> A full solar disk image is in the center of the screen. Mouseover and you will see a zoom-in panel on both sides (left and right). Can you deduce which zoom-in panel is the ground truth and which is our neural network's prediction? Good luck!
@@ -103,7 +103,28 @@
   <p><i><b>Applications.</b></i> We hope to use this system both as a fast "quick-look" version of VFISV and as a tool for troubleshooting some of the abberations seen
   in VFISV's output. For example, there appears to be a strange 24-hour periodic tendency in the sun's magnetic field strength.. However this is very suspicious as the sun probably doesn't
   have 24-hour periodicity, but our satellite observing it definitely has!
-        <img src="./assets/field_month.png" class="img-fluid p-3" alt="Responsive image">
+  <br><br><img src="./assets/field_month.png" class="img-fluid p-3" alt="Responsive image">
+  <br>
+  <div class="container d-flex justify-content-center">
+     <img id="control2" onclick="playMeTwo()" src="./assets/play.png" style="width: 75px;"/>
+  </div>
+  <br>
+  <div class="container d-flex justify-content-center">
+    <input id="ex2" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
+  </div>
+  <div class="container d-flex justify-content-center m-4">
+     <div class="parent" >
+	     <div class="image1"> <!-- onmousemove="triggerTwo(event, this);" -->
+	     <div id="img-container-month" style="pointer-events:all;">
+	     </div>
+	     </div>
+	     <div class="image2" onmousemove="triggerOne(event, this);">
+	     <div id="img-container-gt-month" style="pointer-events:all;">
+	     </div>
+	     </div>
+     </div>
+     <br>
+  </div>
   </div>
 </div>
   <!--
@@ -116,6 +137,7 @@
 -->
 </div>
 </body>
+<script src="./assets/monthputs-field.js"></script>
 <script src="./assets/yearputs-field.js"></script>
 <script src="./main.js"></script>
 </html>
