@@ -1,156 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <title>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Jquery -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
-  <!-- Bootstrap -->
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
-  <link rel="stylesheet" href="./bootstrap.min.css" type="text/css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-  <!-- Bootstrap Slider -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css" type="text/css" />
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
-
-  <!-- Custom -->
-  <link rel="stylesheet" href="./main.css" type="text/css"></script>
-  <style type="text/css">
-   /*body { background: navy !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
-  </style>
-<script src="./js-image-zoom.js"></script>
-</head>
-<body>
-  
-<div class="container">
-  <h1 class="p-3" style="text-align: center;">Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
-  <br>
-  <div class="container d-flex justify-content-center">
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-      <label onclick="radioClick(this)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
-      <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
-    </div>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-     <img id="control" onclick="playMe()" src="./assets/play.png" style="width: 75px;"/>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-    <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-     <div class="parent" >
-	     <div class="image1"> <!-- onmousemove="triggerTwo(event, this);" -->
-	     <div id="img-container" style="pointer-events:all;">
-	     </div>
-	     </div>
-	     <div class="image2" onmousemove="triggerOne(event, this);">
-	     <div id="img-container-gt" style="pointer-events:all;">
-	     </div>
-	     </div>
-     </div>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-          <label id="min">&emsp;&emsp;&ensp;0 Mx/cm^2&nbsp;&nbsp;</label>
-          <img id="cb1" src="https://sunsite.s3.amazonaws.com/assets/field_colorbar.png" style="width: 400px;"/>
-          <label id="max">&nbsp; 5,000 Mx/cm^2</label>
-  </div>
-  <div class="container">
-          <center><p><i><b>Demo 1.</b></i> A full solar disk image is in the center of the screen. Mouseover and you will see a zoom-in panel on both sides (left and right). Can you deduce which zoom-in panel is the ground truth and which is our neural network's prediction? Good luck!
-                  <br><i>Hint: Click the different targets at the top (inclination, azimuth, and more) or the play button to explore further.</i></p> </center>
-  </div>
-  <br>
-  <div class="container">
-          <p><i><b>Introduction.</b></i> Our paper presents a neural network trained to estimate the magnetic field of the sun. It learns to predict the magnetic
-          field using recordings taken from the Helioseismic and Magnetic Imager (HMI) onboard the Solar Dynamics Observatory (SDO). 
-          This HMI sensor measures polarized light (consisting of I, Q, U, and V measurements across 6 bandpasses), and previously a system called the Very Fast Inversion
-          of the Stokes Vector (VFISV ) would iteratively run a Milne-Eddington solar atmosphere inversion algorithm until it found a set of magnetic field settings that 
-          closely matches the real measurements. We emulate this iterative process with a forward model that maps directly from IQUVs to what the magnetic field is.
-          Estimating the magnetic field in this context consists of accurately predicting these eight targets.
-          </p> 
-  <ul>
-        <li>Field -- The strength of the magnetic field, measured in Mx/cm^2.</li>
-        <li>Inclination -- The inclination angle of the magnetic field, measured in degrees.</li>
-        <li>Azimuth -- The azimuth angle of the magnetic field, measured in degrees.</li>
-        <li>LOS Velocity -- The magnitude of the velocity of the plasma in the line-of-sight of the telescope, measured in cm/s.</li>
-        <li>Doppler Width -- A thermodynamic parameter, measured in milli angstroms.</li>
-        <li>Eta_0 -- A thermodynamic parameter, dimensionless.</li>
-        <li>S0 -- A thermodynamic parameter, measured in DN/s.</li>
-        <li>S1 -- A thermodynamic parameter, measured in DN/s.</li>
-  </ul>  
-  <br>
-    <!-- input id="ex4" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
-    <!-- input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
-  <div class="container">
-  <p><i><b>Applications.</b></i> We hope to use this system both as a fast "quick-look" version of VFISV and as a tool for troubleshooting some of the abberations seen
-  in VFISV's output. For example, there appears to be a strange 24-hour periodic tendency in the sun's magnetic field strength.. However this is very suspicious as the sun probably doesn't
-  have 24-hour periodicity, but our satellite observing it definitely has!
-  <br>
-     <div class="parent" >
-	  <img src="./assets/field_month.png" class="image1 img-fluid p-3" alt="Responsive image">
-	  <img id="bluebar" src="./assets/line.png" class="image2 img-fluid p-3" style="height: 85%; left: 90px; top: 20px" alt="Responsive image">
-    </div>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-     <img id="control2" onclick="playMeTwo()" src="./assets/play.png" style="width: 75px;"/>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-    <input id="ex2" data-provide="slider" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="679" data-slider-step="1" data-slider-value="0"/>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-     <div class="parent" >
-	     <div class="image1"> <!-- onmousemove="triggerTwo(event, this);" -->
-	     <div id="img-container-month" style="pointer-events:all;">
-	     </div>
-	     </div>
-	     <div class="image2" onmousemove="triggerOneMonth(event, this);">
-	     <div id="img-container-gt-month" style="pointer-events:all;">
-	     </div>
-	     </div>
-     </div>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-             &emsp;&emsp;&ensp;0 Mx/cm^2&nbsp;&nbsp;<img id="cb2" src="https://sunsite.s3.amazonaws.com/assets/field_colorbar.png" style="width: 400px;"/>&nbsp;&nbsp;5,000 Mx/cm^2
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-          <center><p><i><b>Demo 2.</b></i> Here images taken every hour for the month of february are shown, alongside the graph tracking differences. Each of these images
-                  corresponds to a point on the graph! Since our system can produce full disks in a matter of seconds, it's promising that the above strange 24 hour
-                  oscillation could be resolved by inverting lots of data quickly.</p></center>
-  </div>
-  </div>
-  <div class="container">
-  <p><i><b>Results.</b></i> We measure our performance using Mean Absolute Error (MAE) across the full-disk, as well as across various regions. We find that the model reproduces
-the VFISV output with a high degree of fidelity.</p>
-  <br>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <title>Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./bootstrap.min.css" type="text/css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Bootstrap Slider -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
+    <!-- Custom -->
+    <link rel="stylesheet" href="./main.css" type="text/css">
+    </script>
+    <style type="text/css">
+      /*body { background: navy !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+    </style>
+    <script src="./js-image-zoom.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <br>
+      <h1 class="p-3" style="text-align: center;">Fast and Accurate Emulation of the SDO/HMI Stokes Inversion with Uncertainty Quantification</h1>
+      <br>
+      <div class="container">
+        <p><i><b>Introduction.</b></i> Our paper presents a neural network trained to estimate the magnetic field of the sun. It learns to predict the magnetic
+          field using polarized light measurements (I, Q, U, and V) captured by the Helioseismic and Magnetic Imager (HMI) onboard the Solar Dynamics Observatory (SDO). 
+          Our system is trained to emulate an existing system, the Very Fast Inversion of the Stokes Vector (VFISV), that iteratively runs a Milne-Eddington (ME) solar
+          atmosphere inversion algorithm until it finds a set of magnetic field settings that 
+          closely match real measurements. Our model leverages previous inversions done this way by directly mapping a forward model from IQUVs to magnetic field outputs.
+          Estimating the magnetic field in this context consists of accurately predicting these eight targets, four of which are shown below!
+        </p>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>Field Prediction</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/field/20160617_021200_pred_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>Field Ground Truth</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/field/20160617_021200_gt_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>Inclination Prediction</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/inclination/20160617_021200_pred_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>Inclination Ground Truth</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/inclination/20160617_021200_gt_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>Azimuth Prediction</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/azimuth/20160617_021200_pred_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>Azimuth Ground Truth</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/azimuth/20160617_021200_gt_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>LOS Velocity Prediction</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/vlos_mag/20160617_021200_pred_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <center>LOS Velocity Ground Truth</center>
+          <img src="http://sunsite.s3.amazonaws.com/images/yearputs/vlos_mag/20160617_021200_gt_image_thumb.jpg" class="img-fluid mb-4" alt="">
+        </div>
+      </div>
+      <div class="container">
+              <div class="border-top my-5" style="width: 100%;"></div><br>
+        <p><i><b>Spot the difference. </b></i> Solar disks for the entirety of 2016 are loaded into the below web-viewer, but I am a harassed researcher with no time and 
+        seem to have misplaced the labels. Can I recruit you as a helpful solar scientist? Mouse-over the blue solar disk below to see
+        zoomed-in panels on the left and right side. One is <u>our system's predictions</u> and the other is <u>ground truth output</u> from VFISV. If you figure out which is which, please send me an
+        email at <a href = "mailto: relh@umich.edu">relh@umich.edu</a>! In the meantime I'll be in the lab running more experiments. 
+      </div>
+      <div class="container">
+        Overall I'm happy that the predictions and ground truth images look so similar, it means either I've done a good job or the visualizations are lying to you.
+        Drag the slider to change the date, and click on the different eight targets to change what the viewer is looking at.
+        </p>
+      </div>
+      <br>
+      <br>
+      <div class="container d-flex justify-content-center">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label onclick="radioClick(this)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="container d-flex justify-content-center">
+        <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
+      </div>
+      <br>
+      <div class="container d-flex justify-content-center">
+        <div class="parent" >
+          <div class="image1">
+            <!-- onmousemove="triggerTwo(event, this);" -->
+            <div id="img-container" style="pointer-events:all;">
+            </div>
+          </div>
+          <div class="image2" onmousemove="triggerOne(event, this);">
+            <div id="img-container-gt" style="pointer-events:all;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="container d-flex justify-content-center">
+        <label id="min">&emsp;&emsp;&ensp;0 Mx/cm^2&nbsp;&nbsp;</label>
+        <img id="cb1" src="https://sunsite.s3.amazonaws.com/assets/field_colorbar.png" style="width: 400px;"/>
+        <label id="max">&nbsp; 5,000 Mx/cm^2</label>
+      </div>
+      <br>
+      <div class="container">
+        <center>
+          <p><i><b>Demo 1.</b></i> A full solar disk image is in the center of the screen. Mouseover and you will see a zoom-in panel on both sides (left and right). Can you deduce which zoom-in panel is the ground truth and which is our neural network's prediction? Good luck!
+            <br><i>Hint: Click the different targets at the top to explore further.</i>
+          </p>
+        </center>
+      </div>
+      <div class="container">
+              <div class="border-top my-5" style="width: 100%;"></div><br>
+          <p><i><b>Meet the Targets.</b></i> Now that you've seen some of the data, lets talk more what these various parameters are. They're also strutting there stuff below
+          if you click the video play button.
+          </p>
+        <ul>
+          <li>Field -- The strength of the magnetic field, measured in Mx/cm^2.</li>
+          <li>Inclination -- The inclination angle of the magnetic field, measured in degrees.</li>
+          <li>Azimuth -- The azimuth angle of the magnetic field, measured in degrees.</li>
+          <li>LOS Velocity -- The magnitude of the velocity of the plasma in the line-of-sight of the telescope, measured in cm/s.</li>
+          <li>Doppler Width -- A thermodynamic parameter, measured in milli angstroms.</li>
+          <li>Eta_0 -- A thermodynamic parameter, dimensionless.</li>
+          <li>S0 -- A thermodynamic parameter, measured in DN/s.</li>
+          <li>S1 -- A thermodynamic parameter, measured in DN/s.</li>
+        </ul>
+        <br>
+      </div>
+      <div class="container d-flex justify-content-center">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label onclick="radioClick(this)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
+          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
+        </div>
+      </div>
+      <br>
+      <div class="container d-flex justify-content-center">
+        <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
+      </div><br>
+      <div class="container d-flex justify-content-center">
+        <img id="control" onclick="playMe()" src="./assets/play.png" style="width: 75px;"/>
+      </div>
+      <br>
+      <div class="container d-flex justify-content-center">
+        <div class="parent" >
+          <div class="image1">
+            <!-- onmousemove="triggerTwo(event, this);" -->
+            <div id="img-container" style="pointer-events:all;">
+            </div>
+          </div>
+          <div class="image2" onmousemove="triggerOne(event, this);">
+            <div id="img-container-gt" style="pointer-events:all;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+              <div class="border-top my-5" style="width: 100%;"></div><br>
+        <!-- input id="ex4" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
+        <!-- input id="ex5" data-provide="slider" type="text" data-slider-min="-5" data-slider-max="50" data-slider-step="1" data-slider-value="-3" data-slider-orientation="vertical" -->
+        <div class="container">
+          <p><i><b>Applications.</b></i> We hope to use this system both as a fast "quick-look" version of VFISV and as a tool for troubleshooting some of the abberations seen
+            in VFISV's output. For example, there appears to be a strange 24-hour periodic tendency in the sun's magnetic field strength.. However this is very suspicious as the sun probably doesn't
+            have 24-hour periodicity, but our satellite observing it definitely has!</p>
+            <br>
+          <div class="parent" >
+            <img src="./assets/field_month.png" class="image1 img-fluid p-3" alt="Responsive image">
+            <img id="bluebar" src="./assets/line.png" class="image2 img-fluid p-3" style="height: 85%; left: 90px; top: 20px" alt="Responsive image">
+          </div>
+        </div>
+        <div class="container d-flex justify-content-center m-4">
+          <img id="control2" onclick="playMeTwo()" src="./assets/play.png" style="width: 75px;"/>
+        </div>
+        <div class="container d-flex justify-content-center m-4">
+          <input id="ex2" data-provide="slider" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="679" data-slider-step="1" data-slider-value="0"/>
+        </div>
+        <div class="container d-flex justify-content-center m-4">
+          <div class="parent" >
+            <div class="image1">
+              <!-- onmousemove="triggerTwo(event, this);" -->
+              <div id="img-container-month" style="pointer-events:all;">
+              </div>
+            </div>
+            <div class="image2" onmousemove="triggerOneMonth(event, this);">
+              <div id="img-container-gt-month" style="pointer-events:all;">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container d-flex justify-content-center m-4">
+          &emsp;&emsp;&ensp;0 Mx/cm^2&nbsp;&nbsp;<img id="cb2" src="https://sunsite.s3.amazonaws.com/assets/field_colorbar.png" style="width: 400px;"/>&nbsp;&nbsp;5,000 Mx/cm^2
+        </div>
+        <div class="container d-flex justify-content-center m-4">
+          <center>
+            <p><i><b>Demo 2.</b></i> Here images taken every hour for the month of february are shown, alongside the graph tracking differences. Each of these images
+              corresponds to a point on the graph! Since our system can produce full disks in a matter of seconds, it's promising that the above strange 24 hour
+              oscillation could be resolved by inverting lots of data quickly.
+            </p>
+          </center>
+        </div>
+        <div class="container">
+          <p><i><b>Results.</b></i> We measure our performance using Mean Absolute Error (MAE) across the full-disk, as well as across various regions. We find that the model reproduces
+            the VFISV output with a high degree of fidelity.
+          </p>
+          <br>
+        </div>
+        <div class="container d-flex justify-content-center m-4">
           <img src="./assets/table_negative.png" style="width: 120%;"/>
-  </div>
-  <div class="container d-flex justify-content-center m-4">
-          <center><p><i><b>Table 1.</b></i>
-Quantitative evaluation of VFISV emulation results across 8 Stokes vector inversion targets across the 2016-All dataset. We evaluate according to the Mean Absolute Error (MAE) and percent of pixels within t. Values for t are target specific and are generated by scaling according to the relative variances. We report numbers on four populations of pixels, defined in-text: (<b>Disk</b>) On-Disk, (<b>Plage</b>) Plage Pixels, (<b>AR</b>) Active Region Pixels, (<b>100G+</b>) Pixels with at least 100 G in the absolute value line of sight.
-                  </p></center>
-  </div>
-  <div class="container">
-  <p><i><b>Conclusions.</b></i> In summary, we have presented in this paper a deep-learning approach for fast and accurate emulation of the HMI pipeline Stokes inversion module.
-While our approach provides a more efficient way to produce existing information and does not produce new scientific models, it provides a first step towards advances like correcting hemispheric bias in HMI data, removing oscillation artifacts in HMI magnetograms, and extending solar magnetic field measurements with other observation modalities. In these cases, the prospect of correcting errors or making predictions without a corresponding detailed physical model has the potential to dramatically enhance a mission’s scientific value for solar and space research. Seen from this viewpoint, our ability to rapidly emulate the current pipeline is only a beginning. </p>
-  <br>
-  </div>
-</div>
-</div>
-</body>
-<script src="./assets/monthputs-field.js"></script>
-<script src="./assets/yearputs-field.js"></script>
-<script src="./main.js"></script>
+        </div>
+        <div class="container d-flex justify-content-center m-4">
+          <center>
+            <p><i><b>Table 1.</b></i>
+              Quantitative evaluation of VFISV emulation results across 8 Stokes vector inversion targets across the 2016-All dataset. We evaluate according to the Mean Absolute Error (MAE) and percent of pixels within t. Values for t are target specific and are generated by scaling according to the relative variances. We report numbers on four populations of pixels, defined in-text: (<b>Disk</b>) On-Disk, (<b>Plage</b>) Plage Pixels, (<b>AR</b>) Active Region Pixels, (<b>100G+</b>) Pixels with at least 100 G in the absolute value line of sight.
+            </p>
+          </center>
+        </div>
+        <div class="container">
+          <p><i><b>Conclusions.</b></i> In summary, we have presented in this paper a deep-learning approach for fast and accurate emulation of the HMI pipeline Stokes inversion module.
+            While our approach provides a more efficient way to produce existing information and does not produce new scientific models, it provides a first step towards advances like correcting hemispheric bias in HMI data, removing oscillation artifacts in HMI magnetograms, and extending solar magnetic field measurements with other observation modalities. In these cases, the prospect of correcting errors or making predictions without a corresponding detailed physical model has the potential to dramatically enhance a mission’s scientific value for solar and space research. Seen from this viewpoint, our ability to rapidly emulate the current pipeline is only a beginning. 
+          </p>
+          <br>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </body>
+  <script src="./assets/monthputs-field.js"></script>
+  <script src="./assets/yearputs-field.js"></script>
+  <script src="./main.js"></script>
 </html>
-
