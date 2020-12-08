@@ -29,8 +29,8 @@ var gt_options = {
     zoomPosition: 'left'
 };
 target = document.querySelector('input[name="options"]:checked').id;
-pred_options.img = './images/yearputs/' + target + '/' + yearputsfield[7] + '_pred_image.jpg';
-gt_options.img = './images/yearputs/' + target + '/' + yearputsfield[7] + '_gt_image.jpg';
+pred_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[7] + '_pred_image.jpg';
+gt_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[7] + '_gt_image.jpg';
 window.prediction_zoom = new ImageZoom(container, pred_options);
 window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
 
@@ -41,8 +41,8 @@ function radioClick(label) {
         window['prediction_zoom'].kill();
         window['ground_truth_zoom'].kill();
         var value = $('#ex1').slider('getValue');
-        pred_options.img = './images/yearputs/' + target + '/' + yearputsfield[value] + '_pred_image.jpg';
-        gt_options.img = './images/yearputs/' + target + '/' + yearputsfield[value] + '_gt_image.jpg';
+        pred_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_pred_image.jpg';
+        gt_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_gt_image.jpg';
         window.prediction_zoom = new ImageZoom(container, pred_options);
         window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
 }
@@ -50,11 +50,6 @@ function radioClick(label) {
 function triggerOne(e, context) {
 	var ne = new MouseEvent(e.type, e)
 	container.dispatchEvent(ne, context);
-}
-
-function triggerTwo(e, context) {
-	var ne = new MouseEvent(e.type, e)
-	containergt.dispatchEvent(ne, context);
 }
 
 $('#ex1').slider({
@@ -72,8 +67,8 @@ $('#ex1').slider().on('slideStop', function(value) {
         window['ground_truth_zoom'].kill();
         target = document.querySelector('input[name="options"]:checked').id;
 
-        pred_options.img = './images/yearputs/' + target + '/' + yearputsfield[value.value] + '_pred_image.jpg';
-        gt_options.img = './images/yearputs/' + target + '/' + yearputsfield[value.value] + '_gt_image.jpg';
+        pred_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value] + '_pred_image.jpg';
+        gt_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value] + '_gt_image.jpg';
 
         window.prediction_zoom = new ImageZoom(container, pred_options);
         window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
@@ -92,7 +87,7 @@ var interval;
 function playMe() {
         if (global_play == 0) {
                 global_play = 1;
-                $('#control').attr('src', './assets/pause.png');
+                $('#control').attr('src', 'https://sunsite.s3.amazonaws.com/assets/pause.png');
                 interval = setInterval(function() {
                     var value = $('#ex1').slider('getValue');
                     $('#ex1').slider('setValue', value+1, true, false);
@@ -101,7 +96,7 @@ function playMe() {
                     console.log('time')
                 }, 3000);
         } else {
-                $('#control').attr('src', './assets/play.png');
+                $('#control').attr('src', 'https://sunsite.s3.amazonaws.com/assets/play.png');
                 clearInterval(interval);
                 global_play = 0;
         }
@@ -139,19 +134,14 @@ var gt_options_month = {
 };
 
 month_target = 'field';
-pred_options_month.img = './images/monthputs/' + target + '/' + monthputsfield[7] + '_pred_image.jpg';
-gt_options_month.img = './images/monthputs/' + target + '/' + monthputsfield[7] + '_gt_image.jpg';
+pred_options_month.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[7] + '_pred_image.jpg';
+gt_options_month.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[7] + '_gt_image.jpg';
 window.prediction_zoom_month = new ImageZoom(containermonth, pred_options_month);
 window.ground_truth_zoom_month = new ImageZoom(containergtmonth, gt_options_month);
 
-function triggerOne(e, context) {
+function triggerOneMonth(e, context) {
 	var ne = new MouseEvent(e.type, e)
 	containermonth.dispatchEvent(ne, context);
-}
-
-function triggerTwo(e, context) {
-	var ne = new MouseEvent(e.type, e)
-	containergtmonth.dispatchEvent(ne, context);
 }
 
 $('#ex2').slider({
@@ -169,8 +159,8 @@ $('#ex2').slider().on('slideStop', function(value) {
         window['ground_truth_zoom_month'].kill();
         target = 'field';
 
-        pred_options.img = './images/monthputs/' + target + '/' + monthputsfield[value.value] + '_pred_image.jpg';
-        gt_options.img = './images/monthputs/' + target + '/' + monthputsfield[value.value] + '_gt_image.jpg';
+        pred_options.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value.value] + '_pred_image.jpg';
+        gt_options.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value.value] + '_gt_image.jpg';
 
         window.prediction_zoom_month = new ImageZoom(containermonth, pred_options_month);
         window.ground_truth_zoom_month = new ImageZoom(containergtmonth, gt_options_month);
@@ -187,7 +177,7 @@ $('#ex2').slider().on('slideStop', function(value) {
 function playMeTwo() {
         if (global_play == 0) {
                 global_play = 1;
-                $('#control2').attr('src', './assets/pause.png');
+                $('#control2').attr('src', 'https://sunsite.s3.amazonaws.com/assets/pause.png');
                 interval = setInterval(function() {
                     var value = $('#ex2').slider('getValue');
                     $('#ex2').slider('setValue', value+1, true, false);
@@ -196,7 +186,7 @@ function playMeTwo() {
                     console.log('time')
                 }, 3000);
         } else {
-                $('#control2').attr('src', './assets/play.png');
+                $('#control2').attr('src', 'https://sunsite.s3.amazonaws.com/assets/play.png');
                 clearInterval(interval);
                 global_play = 0;
         }

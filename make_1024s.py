@@ -14,7 +14,7 @@ outputs = '/home/relh/Code/sun_site/images/'
 
 print(os.listdir(gts + 'yearputs/'))
 
-for target in ['field', 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_width', 'src_continuum', 'src_grad']:
+for target in ['field']:#, 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_width', 'src_continuum', 'src_grad']:
 #for target in ['vlos_mag', 'eta_0', 'dop_width', 'src_continuum', 'src_grad']:
 
     min_limit = 0.0 
@@ -59,6 +59,17 @@ for target in ['field', 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_widt
             date = pred.split('_')[0] + '_' + pred.split('_')[1]
             new_name = gts + setting + '/' + target + '/' + date + '_groundtruth.pkl'
             os.rename(gts + setting + '/' + target + '/' + gt_file, new_name)
+            print(new_name)
+        for idx, gt_file in enumerate(gt_files):
+            if idx == 0:
+                date = '20160201_003600'
+            else:
+                date = gt_files[idx-1].split('_')[0] + '_' + gt_files[idx-1].split('_')[1]
+            new_name = gts + setting + '/' + target + '/' + date + '_groundtruth.pkl'
+            os.rename(gts + setting + '/' + target + '/' + gt_file, new_name)
+            print('old name')
+            print(gt_file)
+            print('new name')
             print(new_name)
         '''
 
