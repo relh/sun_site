@@ -33,6 +33,8 @@ pred_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target 
 gt_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[7] + '_gt_image.jpg';
 window.prediction_zoom = new ImageZoom(container, pred_options);
 window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
+preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[8] + '_pred_image.jpg');
+preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[8] + '_gt_image.jpg');
 
 function radioClick(label) {
         //target = document.querySelector('input[name="options"]:checked').id;
@@ -49,24 +51,24 @@ function radioClick(label) {
         var min = 0;
         var max = '5,000 Mx/cm^2';
         if (target == 'field') {
-                min = '&emsp;&emsp;&emsp;&nbsp;&nbsp0 Mx/cm^2'
+                min = '&emsp;&emsp;&ensp;0 Mx/cm^2'
         } else if (target == 'inclination' || target == 'azimuth') {
-                min = '&emsp;&emsp;&ensp;0 °';
+                min = '&emsp;&emsp;0 °';
                 max = '180 °';
         } else if (target == 'vlos_mag'){
-                min = '&emsp;-700,000 cm/s';
+                min = '&ensp;-700,000 cm/s';
                 max = '700,000 cm/s';
         } else if (target == 'eta_0') {
-                min = '&emsp;&emsp;0'
+                min = '&emsp;&nbsp;0'
                 max = '50';
         } else if (target == 'dop_width') {
-                min = '&emsp;&ensp;0 mÅ'
+                min = '&ensp;0 mÅ'
                 max = '60 Å';
         } else if (target == 'src_continuum') {
-                min = '&emsp;&emsp;&emsp;&emsp;0 DN/s'
+                min = '&emsp;&emsp;&emsp;0 DN/s'
                 max = '29,060 DN/s'; //.61;
         } else if (target == 'src_grad') {
-                min = '&emsp;&emsp;&emsp;&emsp;0 DN/s'
+                min = '&emsp;&emsp;&emsp;0 DN/s'
                 max = '52,695 DN/s'; //.32;
         }
         $('#cb1').attr('src', 'https://sunsite.s3.amazonaws.com/assets/' + target + '_colorbar.png');
@@ -191,26 +193,26 @@ $('#ex2').slider({
 });
 
 $('#ex2').slider().on('slideStop', function(value) {
-        console.log(value);
+	var value = $('#ex2').slider('getValue');
+	console.log(value)
         window['prediction_zoom_month'].kill();
         window['ground_truth_zoom_month'].kill();
         target = 'field';
 
-        pred_options.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value.value] + '_pred_image.jpg';
-        gt_options.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value.value] + '_gt_image.jpg';
+        pred_options_month.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value+12] + '_pred_image.jpg';
+        gt_options_month.img = 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value+12] + '_gt_image.jpg';
 
         window.prediction_zoom_month = new ImageZoom(containermonth, pred_options_month);
         window.ground_truth_zoom_month = new ImageZoom(containergtmonth, gt_options_month);
 
-        var container_img = container.getElementsByTagName('img');
-        var container_gt_img = containergt.getElementsByTagName('img');
+        var container_img = containermonth.getElementsByTagName('img');
+        var container_gt_img = containergtmonth.getElementsByTagName('img');
         container_img[0].style.width = 512;
         container_img[0].style.height = 512;
 
         container_gt_img[0].style.width = 512;
         container_gt_img[0].style.height = 512;
 
-	var value = $('#ex2').slider('getValue');
 	var bluebar = document.getElementById('bluebar');
 	console.log(bluebar);
 	console.log(value);
@@ -218,8 +220,8 @@ $('#ex2').slider().on('slideStop', function(value) {
 	new_left = 90 + value * 1.25;
 	bluebar.style.left = new_left.toString() + 'px';
 
-        preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+12] + '_pred_image.jpg');
-        preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+12] + '_gt_image.jpg');
+        preloadImage('https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value+24] + '_pred_image.jpg');
+        preloadImage('https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value+24] + '_gt_image.jpg');
 });
 
 function playMeTwo() {
