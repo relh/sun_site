@@ -45,6 +45,33 @@ function radioClick(label) {
         gt_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_gt_image.jpg';
         window.prediction_zoom = new ImageZoom(container, pred_options);
         window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
+
+        var min = 0;
+        var max = '5,000 Mx/cm^2';
+        if (target == 'field') {
+                min = '&emsp;&emsp;&emsp;&nbsp;&nbsp0 Mx/cm^2'
+        } else if (target == 'inclination' || target == 'azimuth') {
+                min = '&emsp;&emsp;&ensp;0 °';
+                max = '180 °';
+        } else if (target == 'vlos_mag'){
+                min = '&emsp;-700,000 cm/s';
+                max = '700,000 cm/s';
+        } else if (target == 'eta_0') {
+                min = '&emsp;&emsp;0'
+                max = '50';
+        } else if (target == 'dop_width') {
+                min = '&emsp;&ensp;0 mÅ'
+                max = '60 Å';
+        } else if (target == 'src_continuum') {
+                min = '&emsp;&emsp;&emsp;&emsp;0 DN/s'
+                max = '29,060 DN/s'; //.61;
+        } else if (target == 'src_grad') {
+                min = '&emsp;&emsp;&emsp;&emsp;0 DN/s'
+                max = '52,695 DN/s'; //.32;
+        }
+        $('#cb1').attr('src', 'https://sunsite.s3.amazonaws.com/assets/' + target + '_colorbar.png');
+        document.getElementById('min').innerHTML = min + '&nbsp;&nbsp;';
+        document.getElementById('max').innerHTML = '&nbsp;&nbsp;' + max;
 }
 
 function triggerOne(e, context) {

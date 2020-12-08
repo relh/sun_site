@@ -42,12 +42,10 @@
       <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
     </div>
   </div>
-  <br>
-  <div class="container d-flex justify-content-center">
+  <div class="container d-flex justify-content-center m-4">
      <img id="control" onclick="playMe()" src="./assets/play.png" style="width: 75px;"/>
   </div>
-  <br>
-  <div class="container d-flex justify-content-center">
+  <div class="container d-flex justify-content-center m-4">
     <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
   </div>
   <div class="container d-flex justify-content-center m-4">
@@ -61,24 +59,17 @@
 	     </div>
 	     </div>
      </div>
-     <br>
   </div>
   <div class="container">
           <center><p><i><b>Demo 1.</b></i> A full solar disk image is in the center of the screen. Mouseover and you will see a zoom-in panel on both sides (left and right). Can you deduce which zoom-in panel is the ground truth and which is our neural network's prediction? Good luck!
                   <br><i>Hint: Click the different targets at the top (inclination, azimuth, and more) or the play button to explore further.</i></p> </center>
   </div>
+  <div class="container d-flex justify-content-center m-4">
+          <label id="min">&emsp;&emsp;&emsp;&nbsp;&nbsp;0 Mx/cm^2&nbsp;&nbsp;</label>
+          <img id="cb1" src="https://sunsite.s3.amazonaws.com/assets/field_colorbar.png" style="width: 400px;"/>
+          <label id="max">&nbsp; 5,000 Mx/cm^2</label>
+  </div>
   <br>
-  <!--
-	     <img src="./inclination_pred.png" id="top-image" style="width: 512px; height: 512px;" />
-	     <img src="./full_prediction.jpg" style="width: 512px; height: 512px;"/>
-             <img src="./full_prediction.jpg" class="image2" id="top-image" style="width:512px; height: 512px;" />
-             <img src="./full_prediction.jpg" class="image2" />
-          <div id="img-container-gt" class="image2" style="margin-top: -768px;">
-          </div>
-     <img src="./inclination_pred.png" class="float-center image1" />
-     <img src="./full_prediction.png" class="float-center image1" />
-     <img src="./inclination_pred.png" class="float-center image2" />
-  -->
   <div class="container">
           <p><i><b>Introduction.</b></i> Our paper presents a neural network trained to estimate the magnetic field of the sun. It learns to predict the magnetic
           field using recordings taken from the Helioseismic and Magnetic Imager (HMI) onboard the Solar Dynamics Observatory (SDO). 
@@ -105,12 +96,10 @@
   in VFISV's output. For example, there appears to be a strange 24-hour periodic tendency in the sun's magnetic field strength.. However this is very suspicious as the sun probably doesn't
   have 24-hour periodicity, but our satellite observing it definitely has!
   <br><br><img src="./assets/field_month.png" class="img-fluid p-3" alt="Responsive image">
-  <br>
-  <div class="container d-flex justify-content-center">
+  <div class="container d-flex justify-content-center m-4">
      <img id="control2" onclick="playMeTwo()" src="./assets/play.png" style="width: 75px;"/>
   </div>
-  <br>
-  <div class="container d-flex justify-content-center">
+  <div class="container d-flex justify-content-center m-4">
     <input id="ex2" data-provide="slider" data-slider-id='ex2Slider' type="text" data-slider-min="0" data-slider-max="679" data-slider-step="1" data-slider-value="0"/>
   </div>
   <div class="container d-flex justify-content-center m-4">
@@ -124,23 +113,17 @@
 	     </div>
 	     </div>
      </div>
-     <br>
   </div>
-  <div class="container">
+  <div class="container d-flex justify-content-center m-4">
+             &emsp;&emsp;&emsp;&nbsp;&nbsp;0 Mx/cm^2&nbsp;&nbsp;<img id="cb2" src="https://sunsite.s3.amazonaws.com/assets/field_colorbar.png" style="width: 400px;"/>&nbsp;&nbsp;5,000 Mx/cm^2
+  </div>
+  <div class="container d-flex justify-content-center m-4">
           <center><p><i><b>Demo 2.</b></i> Here images taken every hour for the month of february are shown, alongside the graph tracking differences. Each of these images
                   corresponds to a point on the graph! Since our system can produce full disks in a matter of seconds, it's promising that the above strange 24 hour
                   oscillation could be resolved by inverting lots of data quickly.</p></center>
   </div>
   </div>
 </div>
-  <!--
-  <div class="container d-flex justify-content-center">
-        This is the link to the paper on Arxiv.
-  </div>
-  <div class="container d-flex justify-content-center">
-        <img src="./field_month.png" class="img-fluid p-3" alt="Responsive image">
-  </div>
--->
 </div>
 </body>
 <script src="./assets/monthputs-field.js"></script>
