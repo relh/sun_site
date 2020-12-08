@@ -88,6 +88,12 @@ $('#ex1').slider({
 	}
 });
 
+function preloadImage(url)
+{
+    var img = new Image();
+    img.src = url;
+}
+
 $('#ex1').slider().on('slideStop', function(value) {
         console.log(value);
         window['prediction_zoom'].kill();
@@ -107,6 +113,10 @@ $('#ex1').slider().on('slideStop', function(value) {
 
         container_gt_img[0].style.width = 512;
         container_gt_img[0].style.height = 512;
+
+        preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+1] + '_pred_image.jpg');
+        preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+1] + '_gt_image.jpg');
+	
 });
 
 var global_play = 0;
@@ -207,6 +217,9 @@ $('#ex2').slider().on('slideStop', function(value) {
 	console.log(bluebar.style.left)
 	new_left = 90 + value * 1.25;
 	bluebar.style.left = new_left.toString() + 'px';
+
+        preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+12] + '_pred_image.jpg');
+        preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+12] + '_gt_image.jpg');
 });
 
 function playMeTwo() {
