@@ -1,8 +1,8 @@
 $('#ex1').slider({
 	tooltip: 'always',
 	formatter: function(value) {
-                date = yearputsfield[value].substring(0,8);
-                date = date.slice(0, 4) + '/' + date.slice(4,6) + '/' + date.slice(6);
+                date = yearputsfield[value].substring(0,15);
+                date = date.slice(0, 4) + '/' + date.slice(4,6) + '/' + date.slice(6,8) + ' ' + date.slice(9,11) + ':' + date.slice(11,13);
 		return 'Date: ' + date ;
 	}
 });
@@ -19,8 +19,8 @@ $('#ex2').slider({
 $('#ex3').slider({
 	tooltip: 'always',
 	formatter: function(value) {
-                date = yearputsfield[value].substring(0,8);
-                date = date.slice(0, 4) + '/' + date.slice(4,6) + '/' + date.slice(6);
+                date = yearputsfield[value].substring(0,15);
+                date = date.slice(0, 4) + '/' + date.slice(4,6) + '/' + date.slice(6,8) + ' ' + date.slice(9,11) + ':' + date.slice(11,13);
 		return 'Date: ' + date ;
 	}
 });
