@@ -34,3 +34,8 @@ body, input, select, label, p, li, button {
           font-size: 24px;
 }
 
+/*.slider.slider-horizontal:hover, .slider.slider-vertical:hover { */
+.tooltip-inner {
+	font-size: 200% !important;
+	margin-top: -10%;
+}
