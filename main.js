@@ -74,15 +74,19 @@ function radioClick(label, play) {
         //target = document.querySelector('input[name="options"]:checked').id;
         var input = label.getElementsByTagName('input')[0]
         var target = input.id;
-        var value = $('#ex1').slider('getValue');
 	if (play == false) {
+                var value = $('#ex1').slider('getValue');
 		window['prediction_zoom'].kill();
 		window['ground_truth_zoom'].kill();
 		pred_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_pred_image_thumb.jpg';
 		gt_options.img = 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_gt_image_thumb.jpg';
 		window.prediction_zoom = new ImageZoom(container, pred_options);
 		window.ground_truth_zoom = new ImageZoom(containergt, gt_options);
-	}
+	} else{
+                var value = $('#ex3').slider('getValue');
+                $('#playimage').attr('src', 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_pred_image_thumb.jpg');
+                $('#playimagegt').attr('src', 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value] + '_gt_image_thumb.jpg');
+        }
 
         var min = 0;
         var max = '5,000 Mx/cm^2';
@@ -107,9 +111,16 @@ function radioClick(label, play) {
                 min = '&emsp;&emsp;&emsp;0 DN/s'
                 max = '52,695 DN/s'; //.32;
         }
-        $('#cb1').attr('src', 'https://sunsite.s3.amazonaws.com/assets/' + target + '_colorbar.png');
-        document.getElementById('min').innerHTML = min + '&nbsp;&nbsp;';
-        document.getElementById('max').innerHTML = '&nbsp;&nbsp;' + max;
+
+        if (play == false) {
+                $('#cb1').attr('src', 'https://sunsite.s3.amazonaws.com/assets/' + target + '_colorbar.png');
+                document.getElementById('min').innerHTML = min + '&nbsp;&nbsp;';
+                document.getElementById('max').innerHTML = '&nbsp;&nbsp;' + max;
+        } else {
+                $('#cb3').attr('src', 'https://sunsite.s3.amazonaws.com/assets/' + target + '_colorbar.png');
+                document.getElementById('min3').innerHTML = min + '&nbsp;&nbsp;';
+                document.getElementById('max3').innerHTML = '&nbsp;&nbsp;' + max;
+        }
 }
 
 function triggerOne(e, context) {
