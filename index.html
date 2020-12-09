@@ -90,14 +90,14 @@
       <br>
       <div class="container d-flex justify-content-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label onclick="radioClick(this)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
+          <label onclick="radioClick(this, false)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
         </div>
       </div>
       <br>
@@ -153,36 +153,35 @@
       </div>
       <div class="container d-flex justify-content-center">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-          <label onclick="radioClick(this)" class="btn btn-secondary active"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="inclination" autocomplete="off"> Inclination</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="azimuth" autocomplete="off"> Azimuth</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="dop_width" autocomplete="off"> Doppler Width</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="eta_0" autocomplete="off"> Eta 0</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_continuum" autocomplete="off"> Source Continuum</label>
-          <label onclick="radioClick(this)" class="btn btn-secondary"><input type="radio" name="options" id="src_grad" autocomplete="off"> Source Gradient</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="options" id="field" autocomplete="off" checked> Field</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary active"><input type="radio" name="optionsPlay" id="inclination" autocomplete="off" checked> Inclination</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="optionsPlay" id="azimuth" autocomplete="off"> Azimuth</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="optionsPlay" id="vlos_mag" autocomplete="off"> LOS Velocity</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="optionsPlay" id="dop_width" autocomplete="off"> Doppler Width</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="optionsPlay" id="eta_0" autocomplete="off"> Eta 0</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="optionsPlay" id="src_continuum" autocomplete="off"> Source Continuum</label>
+          <label onclick="radioClick(this, true)" class="btn btn-secondary"><input type="radio" name="optionsPlay" id="src_grad" autocomplete="off"> Source Gradient</label>
         </div>
       </div>
       <br><br>
       <div class="container d-flex justify-content-center">
-        <input id="ex1" data-provide="slider" data-slider-id='ex1Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="7"/>
+        <input id="ex3" data-provide="slider" data-slider-id='ex3Slider' type="text" data-slider-min="0" data-slider-max="168" data-slider-step="1" data-slider-value="10"/>
       </div><br>
       <div class="container d-flex justify-content-center">
         <img id="control" onclick="playMe()" src="./assets/play.png" style="width: 75px;"/>
       </div>
       <br>
-      <div class="container d-flex justify-content-center">
-        <div class="parent" >
-          <div class="image1">
+      <div class="container-fluid">
             <!-- onmousemove="triggerTwo(event, this);" -->
-            <div id="img-container-play" style="pointer-events:all;">
-            </div>
-          </div>
-          <div class="image2" onmousemove="triggerOnePlay(event, this);">
-            <div id="img-container-gt-play" style="pointer-events:all;">
-            </div>
-          </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6 mb-4">
+          <center>Prediction</center>
+          <img id="playimage" src="http://sunsite.s3.amazonaws.com/images/yearputs/inclination/20160123_180000_pred_image_thumb.jpg" class="img-fluid mb-4" alt="">
         </div>
+        <div class="col-lg-6 col-md-6 mb-4">
+          <center>Ground Truth</center>
+          <img id="playimagegt" src="http://sunsite.s3.amazonaws.com/images/yearputs/inclination/20160123_180000_gt_image_thumb.jpg" class="img-fluid mb-4" alt="">
+      </div>
       </div>
       <div class="container">
               <div class="border-top my-5" style="width: 100%;"></div><br>
@@ -195,7 +194,7 @@
             <br>
           <div class="parent" >
             <img src="./assets/field_month.png" class="image1 img-fluid p-3" alt="Responsive image">
-            <img id="bluebar" src="./assets/line.png" class="image2 img-fluid p-3" style="height: 85%; left: 90px; top: 20px" alt="Responsive image">
+            <img id="bluebar" src="./assets/line.png" class="image2 img-fluid p-3" style="height: 85%; left: 8.5%; top: 5%" alt="Responsive image">
           </div>
         </div>
         <div class="container d-flex justify-content-center m-4">
