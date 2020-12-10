@@ -27,7 +27,7 @@ for target in ['field']:#, 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_w
         max_limit = 180.0
     elif 'field' in target or 'b_fill_factor' in target:
         image_colormap = plt.get_cmap('plasma')
-        max_limit = 5000.0
+        max_limit = 3000.0 #5000.0
     elif 'vlos_mag' in target:
         image_colormap = plt.get_cmap('coolwarm')
         min_limit = -700000.0
@@ -46,7 +46,7 @@ for target in ['field']:#, 'inclination', 'azimuth', 'vlos_mag', 'eta_0', 'dop_w
         max_limit = 52695.32
     image_colormap.set_bad('black', 1.)
 
-    for setting in ['monthputs']: #, 'monthputs']:
+    for setting in ['monthputs', 'yearputs']:
         gt_files = sorted(os.listdir(gts + setting + '/' + target + '/'))
         pred_files = sorted(os.listdir(preds + setting + '/' + target + '/'))
         #with open(f'{setting}-{target}.json', 'w') as f:
