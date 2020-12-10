@@ -1,3 +1,4 @@
+// Declare the 3 slider bars
 $('#ex1').slider({
 	tooltip: 'always',
 	formatter: function(value) {
@@ -25,7 +26,7 @@ $('#ex3').slider({
 	}
 });
 
-// Yearputs Initialization
+// Demo 2 -- The Zoom-ins Window -- Yearputs Initialization
 var container = document.getElementById('img-container');
 var containergt = document.getElementById('img-container-gt');
 
@@ -147,7 +148,7 @@ $('#ex1').slider().on('slideStop', function(value) {
         container_gt_img[0].style.height = 768;
 });
 
-// Play Section
+// Demo 1 -- The Play Section
 var containerplay = document.getElementById('img-container-play');
 var containergtplay = document.getElementById('img-container-gt-play');
 
@@ -186,7 +187,7 @@ $('#ex3').slider().on('slideStop', function(value) {
         preloadImage('https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value+1] + '_gt_image_thumb.jpg');
 });
 
-// Month Section
+// Demo 3 -- The Month Section
 month_target = 'field';
 
 function triggerOneMonth(e, context) {
