@@ -87,7 +87,7 @@ function radioClick(label, play) {
         }
 
         var min = 0;
-        var max = '5,000 Mx/cm^2';
+        var max = '3,000 Mx/cm^2';
         if (target == 'field') {
                 min = '&emsp;&emsp;&ensp;0 Mx/cm^2'
         } else if (target == 'inclination' || target == 'azimuth') {
