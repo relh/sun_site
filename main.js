@@ -97,7 +97,7 @@ function radioClick(label, play) {
     var target = input.id;
     var targetIndex = targetNames.indexOf(target);
 
-    document.getElementById('quizReveal').innerHTML = 'Reveal';
+    document.getElementById('quizReveal').innerHTML = 'Reveal Answer';
 
 	if (play == false) {
                 var value = $('#ex1').slider('getValue');
@@ -129,9 +129,9 @@ function radioClick(label, play) {
         }
 
         var min = 0;
-        var max = '3,000 Mx/cm^2';
+        var max = '3,000 Mx/cm<sup>2</sup>';
         if (target == 'field') {
-                min = '&emsp;&emsp;&ensp;0 Mx/cm^2'
+                min = '&emsp;&emsp;&ensp;0 Mx/cm<sup>2</sup>'
         } else if (target == 'inclination' || target == 'azimuth') {
                 min = '&emsp;&emsp;0 °';
                 max = '180 °';
@@ -172,7 +172,7 @@ $('#ex1').slider().on('slideStop', function(value) {
         window['prediction_zoom'].kill();
         window['vfisv_zoom'].kill();
 
-        document.getElementById('quizReveal').innerHTML = 'Reveal';
+        document.getElementById('quizReveal').innerHTML = 'Reveal Answer';
 
         var target = document.querySelector('input[name="options"]:checked').id;
         var targetIndex = targetNames.indexOf(target);
@@ -227,7 +227,7 @@ function playMe() {
 }
 
 $('#ex3').slider().on('slideStop', function(value) {
-        target = document.querySelector('input[name="optionsPlay"]:checked').id;
+        var target= document.querySelector('input[name="optionsPlay"]:checked').id;
 
         $('#playimage').attr('src', 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value] + '_pred_image_thumb.jpg');
         $('#playimagegt').attr('src', 'https://sunsite.s3.amazonaws.com/images/yearputs/' + target + '/' + yearputsfield[value.value] + '_gt_image_thumb.jpg');
@@ -253,8 +253,9 @@ $('#ex2').slider().on('slideStop', function(value) {
         $('#monthimagegt').attr('src', 'https://sunsite.s3.amazonaws.com/images/monthputs/' + target + '/' + monthputsfield[value+12] + '_gt_image_thumb.jpg');
 
 	var bluebar = document.getElementById('bluebar');
-	new_left = 12.00 + value / 4.1;
-        if (new_left > 93.5) {
+//	new_left = 12.00 + value / 4.1;
+	new_left = 6.00 + value / 7.2;
+    if (new_left > 93.5) {
 		new_left = 93.5;
 	} 
 	bluebar.style.left = new_left.toString() + '%';
